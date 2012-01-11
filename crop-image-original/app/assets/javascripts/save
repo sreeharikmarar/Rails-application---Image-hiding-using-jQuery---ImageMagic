@@ -1,0 +1,50 @@
+<script type="text/javascript">
+      var i =1;
+      
+      var cord_list;
+      var adj_list;
+  jQuery(document).ready(function(){
+    jQuery("#add").click(function(){
+      
+      var X1 = jQuery("#x1").val();
+      var Y1 = jQuery("#y1").val();
+      var X2 = jQuery("#x2").val(); 
+      var Y2 = jQuery("#y2").val();
+      var W = jQuery("#w").val();
+      var H = jQuery("#h").val();
+      cord_list[i]= [w,H,X1,Y1];
+      alert(cord_list);
+      adj_list[j].push(cord_list);
+      alert(adj_list);
+      jQuery('<div/>', {
+    	'id': 'X',
+        'class': 'inline_div',
+    	'rel': 'external',
+    	'text': "X1 : "+X1+" , "+"Y1 : "+Y1+" , "+"X2 : "+X2+" , "+"Y2 : "+Y2 +" , "+"Height : "+H+" , "+"Width : "+W
+		}).appendTo('#X'); 
+	
+      jQuery('#X').append($(o));
+	
+        j=j+1;
+    });
+
+     jQuery("#save").click(function(){
+      
+      var parameters = adj_list;
+      jQuery.post(
+               "image/save",
+               parameters,
+
+               function(result){
+                 alert(result);
+               }
+
+
+ );
+ i=i+1;
+ j=j+1;
+   
+ });
+  });
+
+</script>

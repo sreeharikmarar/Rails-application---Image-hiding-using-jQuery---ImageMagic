@@ -1,0 +1,23 @@
+<script type="text/javascript">
+  jQuery(document).ready(function(){
+    jQuery("#add").click(function(){
+      
+      var X1 = jQuery("#x1").val();
+      var Y1 = jQuery("#y1").val();
+      var X2 = jQuery("#x2").val(); 
+      var Y2 = jQuery("#y2").val();
+      var W = jQuery("#w").val();
+      var H = jQuery("#h").val();
+      
+      jQuery('<div/>', {
+    	'id': 'X',
+        'class': 'inline_div',
+    	'rel': 'external',
+    	'text': "X1 : "+X1+" , "+"Y1 : "+Y1+" , "+"X2 : "+X2+" , "+"Y2 : "+Y2 +" , "+"Height : "+H+" , "+"Width : "+W
+		}).appendTo('#X'); 
+	
+      jQuery('#X').append($(o));
+    });
+
+     
+ });

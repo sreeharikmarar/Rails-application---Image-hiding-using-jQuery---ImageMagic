@@ -1,0 +1,28 @@
+<div style="clear:both;display: block;height: 10px;" ></div>
+<div align="center" style="width:900px;">
+  <div style="width:400px;background-color: #ffe599 ;border: solid 1px #eee;border-radius:4px;">
+    <%= render :partial=>"form" %>
+  </div>
+</div>
+
+<div style="clear:both;display: block;height: 10px;"></div>
+<% @files.each do |file| %>
+  <div style="padding: 5px;float: left;margin-left: 20px;display: block;border: 1px solid #0f5a96" >
+    <%= image_tag "/uploaded_files/tiny/#{file.id}.jpg", :id => "target", :class=>"FLOAT_LEFT" %>
+  </div>
+  <div align="justify" id="DIV_IAMGE" style="float: left;width:614px;background-color: #FCFCFC;border: solid 1px #eee;padding: 10px;margin-left: 15px;font-family: arial;font-size: 14px;">
+    <strong>Id :</strong> <%= id = file.id %><br/>
+    <strong>Filename :</strong> <%= file.document_file_name %><br/>
+    <strong>File path : </strong><%= file_path = file.document %><br/>
+    <strong>Content type :</strong> <%= content_type = file.document_content_type %><br/>
+    <strong>Item to hide file path : </strong><%= items_to_hide_file_path = "/home/prescience/items_to_hide.txt" %><br/>
+    <strong>Bucket Name :</strong> <%= bucket_name = "s3resume" %><br/>
+    <strong> Rails root :</strong> <%= rails_root_path = Rails.root.to_s %>
+    <%= link_to "Delete", delete_image_path(:id=>file.id), :class => "BUTTON", :style=>"float:right;margin-left:10px;"  %>
+    <%= link_to "Show", show_image_path(:id=>file.id), :class => "BUTTON", :style=>"float:right;"  %>
+  </div>
+  <div style="clear:both;display: block;height: 20px;" ></div>
+
+
+		
+<% end %>

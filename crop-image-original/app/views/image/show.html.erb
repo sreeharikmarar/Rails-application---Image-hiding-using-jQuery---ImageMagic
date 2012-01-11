@@ -1,0 +1,209 @@
+<div class="CL"></div>
+<div align="justify" id="DIV_IAMGE" style="float: left;width:614px;background-color: #ffe599 ;border: solid 1px #eee;padding: 10px;margin-left: 15px;font-family: arial;font-size: 14px;">
+<h3>How to use : </h3>
+<p><b>1 .</b>Select the portion of the image that you want to hid using image magic and then click add button,The selected cordinates will displayed above the image.</p>
+<p><b>2 .</b>You can select multiple selections using jcrop,the only thing is that you have to click the add button after every selction ,then only the selected coordinates will be added to the array for hiding.</p>
+<p><b>3 .</b>After you completed your selection,then press the desired color button that you wants to color with,now you you can see that the selected field is coloured with selected color.</p>
+<%= link_to "Delete Image", delete_image_path(:id=>@file.id), :class => "BUTTON", :style=>"float:right;"  %>
+</div>
+
+
+<div id="X" style="float: left;width:614px;"></div>
+
+<br/>
+
+
+<div style="clear:both;display: block;height: 20px;" ></div>
+<div style="padding: 5px;float: left;margin-left: 20px;display: block;border: 1px solid #0f5a96" >
+  <%= image_tag "/uploaded_files/original/#{@file.id}.jpg", :id => "target" %>
+
+</div>
+
+<div style="clear:both;display: block;height: 20px;" ></div>
+<div id="outer">
+  <div class="jcExample">
+    <div class="article">
+
+
+
+      <!-- This is the image we're attaching Jcrop to -->
+
+
+      <!-- This is the form that our event handler fills -->
+      <form id="coords"
+            class="coords"
+            onsubmit="return false;"
+            action="http://example.com/post.php">
+        <div>
+        <input type="hidden" size="4" id="x1" name="x1" />
+           <input type="hidden" size="4" id="y1" name="y1" />
+          <input type="hidden" size="4" id="x2" name="x2" />
+          <input type="hidden" size="4" id="y2" name="y2" />
+          <input type="hidden" size="4" id="w" name="w" />
+        <input type="hidden" size="4" id="h" name="h" />
+
+        </div>
+        <button id="add" class ="BUTTON">ADD</button>
+        <button id ="black" class ="BUTTON_1">BLACK</button>
+<button id ="white" class ="BUTTON_2">WHITE</button>
+<button id ="blue" class ="BUTTON_3" >BLUE</button>
+<button id ="red" class ="BUTTON_4" >RED</button>
+<button id ="green" class ="BUTTON_5">GREEN</button>
+      </form>
+      <div style="clear:both;display: block;height: 5px;" ></div>
+      <div id="outer">
+        <div class="jcExample">
+          <div class="article">
+            <div id="interface" style="margin: 1em 0;"></div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style type="text/css">
+  .inline_div {
+      background-color: #FCFCFC;
+      border: solid 1px #EEE;
+      margin: 10px;
+      padding: 10px;
+  }
+</style>
+
+<script type="text/javascript">
+  jQuery(function($){
+
+    $('#target').Jcrop({
+      onChange:   showCoords,
+      onSelect:   showCoords,
+      onRelease:  clearCoords
+    });
+
+  });
+  function showCoords(c)
+  {
+    $('#x1').val(c.x);
+    $('#y1').val(c.y);
+    $('#x2').val(c.x2);
+    $('#y2').val(c.y2);
+    $('#w').val(c.w);
+    $('#h').val(c.h);
+  };
+
+  function clearCoords()
+  {
+    $('#coords input').val('');
+    $('#h').css({color:'red'});
+    window.setTimeout(function(){
+      $('#h').css({color:'inherit'});
+    },500);
+  };
+
+</script>
+<script type="text/javascript">
+      var i =1;
+      var j =1;
+     
+      var adj_list=[];
+  jQuery(document).ready(function(){
+    jQuery("#add").click(function(){
+      var cord_list=[];
+      
+      var X1 = jQuery("#x1").val();
+      var Y1 = jQuery("#y1").val();
+      var X2 = jQuery("#x2").val();
+      var Y2 = jQuery("#y2").val();
+      var W = jQuery("#w").val();
+      var H = jQuery("#h").val();
+      cord_list= [W,H,X1,Y1];
+      //alert(cord_list);
+      adj_list.push(cord_list);
+      //alert(adj_list);
+      //alert(X1);
+      jQuery('<div/>', {
+    	'id': 'X',
+        'class': 'inline_div',
+    	'rel': 'external',
+    	'text': "X1 : "+X1+" , "+"Y1 : "+Y1+" , "+"X2 : "+X2+" , "+"Y2 : "+Y2 +" , "+"Height : "+H+" , "+"Width : "+W
+		}).appendTo('#X');
+
+      jQuery('#X').append($(o));
+	//i=i+1;
+        
+        j=j+1;
+    });
+
+    //var datastring = adj_list+'&authenticity_token='+AUTH_TOKEN;
+    //var val = encodeURIComponent(JSON.stringify(adj_list));
+    var val=adj_list;
+         jQuery("#black").click(function(){
+         jQuery.ajax({
+            type: "POST",
+            url: "/image/save",
+            data: {"params": val,"color": 1},
+            complete: function () {
+        window.location.reload(true);
+    }
+         });});
+
+
+         jQuery("#white").click(function(){
+         jQuery.ajax({
+            type: "POST",
+            url: "/image/save",
+            data: {"params": val,"color": 2},
+            complete: function () {
+        window.location.reload(true);
+    }
+     });});
+         jQuery("#blue").click(function(){
+         jQuery.ajax({
+            type: "POST",
+            url: "/image/save",
+            data: {"params": val,"color": 3},
+            complete: function () {
+        window.location.reload(true);
+    }
+     });});
+         jQuery("#red").click(function(){
+         jQuery.ajax({
+            type: "POST",
+            url: "/image/save",
+            data: {"params": val,"color": 4},
+            complete: function () {
+        window.location.reload(true);
+    }
+    });});
+    var val=adj_list;
+         jQuery("#green").click(function(){
+         jQuery.ajax({
+            type: "POST",
+            url: "/image/save",
+            data: {"params": val,"color": 5},
+            complete: function () {
+        window.location.reload(true);
+    }
+});
+  });
+
+
+      
+ 
+
+       });
+  
+
+</script>
+
+
+
+
+
+  
+
+
+
+
+
